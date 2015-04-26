@@ -1,6 +1,8 @@
 source 'http://rubygems.org'
 ruby "2.1.5"
 
+gem 'bundler'
+
 ## Bundle rails:
 gem 'rails', '4.2.0.rc3'
 
@@ -48,7 +50,7 @@ gem 'prawn',        '~> 0.12.0'
 gem "rails3-generators", "~> 1.0.0"
 #git: "https://github.com/neocoin/rails3-generators.git"
 gem "rails_config"
-gem 'rmagick',    '= 2.13.3', :require => 'RMagick'
+#gem 'rmagick',    '= 2.13.3', :require => 'RMagick'
 
 gem 'rake', '~> 10.1'
 
@@ -64,7 +66,7 @@ gem 'zurb-foundation', '~> 4.3.2'
 
 group :production do
   gem 'mysql2', '~> 0.3.17'
-  gem 'pg'
+# gem 'pg'
   gem 'rails_12factor'
 end
 
@@ -83,23 +85,23 @@ group :development do
   gem 'yard'
   gem 'RedCloth'
 end
-group :test, :development do
-  gem 'capybara'#, "~> 2.4.1"#, :git => 'git://github.com/jnicklas/capybara.git'
-  gem 'launchy'
-  gem 'database_cleaner', "~> 1.2"
-end
+#group :test, :development do
+#  gem 'capybara'#, "~> 2.4.1"#, :git => 'git://github.com/jnicklas/capybara.git'
+#  gem 'launchy'
+#  gem 'database_cleaner', "~> 1.2"
+#end
 
-group :test do
+#group :test do
   # gem 'byebug'
   #gem 'factory_girl', "~> 3.3.0"
   #gem 'factory_girl_rails', "~> 3.3.0"
-  gem 'factory_girl', "~> 4.5.0"
-  gem 'factory_girl_rails', "~> 4.5.0"
-  gem 'mocha', '~> 0.13.3', :require => false
-  gem 'rspec-rails-mocha'
-  gem 'rspec-rails', '~> 3.1.0'#'2.99.0'#, '~> 3.0.2'
+#  gem 'factory_girl', "~> 4.5.0"
+#  gem 'factory_girl_rails', "~> 4.5.0"
+#  gem 'mocha', '~> 0.13.3', :require => false
+#  gem 'rspec-rails-mocha'
+#  gem 'rspec-rails', '~> 3.1.0'#'2.99.0'#, '~> 3.0.2'
 
-  gem 'email_spec'
-  gem "faker"
+#  gem 'email_spec'
+#  gem "faker"
 
-end
+#end

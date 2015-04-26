@@ -20,7 +20,7 @@ EXAMPLE USAGE!!
   end
 
   def site_name
-    I18n.t(:company)
+    "Artychoke"
   end
 
   def remove_child_link(name, f)
