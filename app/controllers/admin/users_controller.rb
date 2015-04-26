@@ -15,22 +15,27 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def new
+    flash[:notice] = nil
     @user = User.new
     authorize! :create_users, current_user
     form_info
   end
 
   def create
+    flash[:notice] = nil
     @user = User.new(user_params)
     authorize! :create_users, current_user
-    if @user.save
-      @user.deliver_activation_instructions!
-      add_to_recent_user(@user)
-      flash[:notice] = "Your account has been created. Please check your e-mail for your account activation instructions!"
-      redirect_to admin_users_url
+    if @user.valid?
+       @user.save
+       @user.add_roles(params['user']['role_ids'])
+       #@user.deliver_activation_instructions!
+       add_to_recent_user(@user)
+       flash[:notice] = "Your account has been created. Please check your e-mail for your account activation instructions!"
+       redirect_to admin_users_url
     else
-      form_info
-      render :action => :new
+       flash[:notice] = @user.errors.full_messages.join('<br/>')
+       form_info
+       render :action => :new
     end
   end
 
@@ -44,7 +49,7 @@ class Admin::UsersController < Admin::BaseController
     params[:user][:role_ids] ||= []
     @user = User.includes(:roles).find(params[:id])
     authorize! :create_users, current_user
-    if @user.update_attributes(user_params)
+    if @user.update_attributes(existing_user_params)
       flash[:notice] = "#{@user.name} has been updated."
       redirect_to admin_users_url
     else
@@ -56,7 +61,11 @@ class Admin::UsersController < Admin::BaseController
   private
 
   def user_params
-    params.require(:user).permit(:password, :password_confirmation, :first_name, :last_name, :email, :state, :role_ids => [])
+    params.require(:user).permit(:password, :password_confirmation, :first_name, :last_name, :email, :state)
+  end
+
+  def existing_user_params
+    params.require(:user).permit(:password, :password_confirmation, :first_name, :last_name, :email, :state, :role_ids)
   end
 
   def form_info

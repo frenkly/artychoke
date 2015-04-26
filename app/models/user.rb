@@ -146,6 +146,13 @@ class User < ActiveRecord::Base
     !['canceled', 'inactive'].any? {|s| self.state == s }
   end
 
+
+  def add_roles(role_ids)
+    for role_id in role_ids
+      UserRole.create(:user_id => self.id, :role_id => role_id)
+    end
+  end
+
   # returns true or false if the user has a role or not
   #
   # @param [String] role name the user should have
